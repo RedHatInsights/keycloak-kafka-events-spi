@@ -1,4 +1,4 @@
-package com.redhat.keycloak.events;
+package com.redhat.keycloak.kafka.events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class KafkaEventListenerProvider implements EventListenerProvider {
     private ObjectMapper mapper;
 
     public KafkaEventListenerProvider(String bootstrapServers, String clientId, String topicEvents, String[] events,
-                                      String topicAdminEvents, Map<String, Object> kafkaProducerProperties, KafkaProducerFactory factory) {
+                                      String topicAdminEvents, Map<String, Object> kafkaProducerProperties, KafkaProducerInterface factory) {
         this.topicEvents = topicEvents;
         this.events = new ArrayList<>();
         this.topicAdminEvents = topicAdminEvents;

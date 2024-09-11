@@ -35,6 +35,12 @@ The project is packaged as a jar file and bundles the prometheus client librarie
 $ ./gradlew jar
 ```
 
+Run tests
+
+```sh
+$ ./gradlew test
+```
+
 builds the jar and writes it to _build/libs_.
 
 ### Maven
@@ -42,7 +48,13 @@ builds the jar and writes it to _build/libs_.
 To build the jar file using maven run the following command (will bundle the prometheus client libraries as well):
 
 ```sh
-mvn package
+  mvn package
+```
+
+Run tests
+
+```sh
+  mvn test
 ```
 
 It will build the project and write jar to the _./target_.

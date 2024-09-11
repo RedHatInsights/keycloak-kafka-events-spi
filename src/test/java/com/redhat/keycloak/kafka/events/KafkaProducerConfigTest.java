@@ -1,4 +1,4 @@
-package com.redhat.keycloak.events;
+package com.redhat.keycloak.kafka.events;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
