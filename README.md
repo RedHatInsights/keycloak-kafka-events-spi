@@ -107,3 +107,19 @@ ERROR: Failed to open /opt/keycloak/lib/../providers/keycloak-events-spi.jar
 
 ![Admin console config](images/initialize-kafka-listener.png)
 
+## Podman/Docker Container
+The simplest way to enable the kafka module in a docker container is to create a custom docker image from the keycloak 
+base image. A simple example can be found in the [Dockerfile](Dockerfile).
+When you build this image on your local machine by using 
+```sh
+podman build . -t keycloak-kafka --tls-verify=false
+```
+
+You can test everything by running the [docker-compose](docker-compose.yml) file on your local machine.
+Note: Make sure you have set up Podman to work with [compose](https://podman-desktop.io/docs/compose/setting-up-compose). 
+```sh
+podman compose --file docker-compose.yml up --detach
+```
+
+This just provides a simple example to show how it's working. Please consider to read [this documentation](https://www.keycloak.org/server/containers) and create your own Dockerfile.
+

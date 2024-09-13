@@ -1,1 +1,1 @@
-org.keycloak.events.EventListenerProviderFactory
+com.redhat.keycloak.kafka.events.KafkaEventListenerProviderFactory

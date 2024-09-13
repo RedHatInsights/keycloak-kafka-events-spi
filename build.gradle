@@ -25,11 +25,10 @@ ext {
     kafkaVersion=project.properties["kafkaVersion"]
 }
 
-
 dependencies {
-    implementation group: 'org.keycloak', name: 'keycloak-server-spi-private', version: keycloakVersion
-    implementation group: 'org.keycloak', name: 'keycloak-server-spi', version: keycloakVersion
-    implementation group: 'org.keycloak', name: 'keycloak-services', version: keycloakVersion
+    compileOnly group: 'org.keycloak', name: 'keycloak-server-spi-private', version: keycloakVersion
+    compileOnly group: 'org.keycloak', name: 'keycloak-server-spi', version: keycloakVersion
+    compileOnly group: 'org.keycloak', name: 'keycloak-services', version: keycloakVersion
 
     compileOnly 'org.apache.tomcat:tomcat-servlet-api:9.0.37'
     compileOnly group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaVersion
