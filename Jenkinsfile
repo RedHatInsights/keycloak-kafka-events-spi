@@ -14,7 +14,7 @@ node('maven') {
     }
 
     stage('Unit tests') {
-        sh './gradlew test'
+        sh './mvn test'
     }
 
 }

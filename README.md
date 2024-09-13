@@ -13,35 +13,12 @@ provider(s) are defined:
 
  See [LICENSE file](./LICENSE)
 
-## Running the tests
-
-```sh
-$ ./gradlew test
-```
-
 ## Build
 
-There are two ways to build the project using:
- * [Gradle](https://gradle.org/)
+Build the project using:
  * [Maven](https://maven.apache.org/)
 
-You can choose between the tools the most convenient for you. Read further how to use each of them.
-
-### Gradle
-
 The project is packaged as a jar file and bundles the prometheus client libraries.
-
-```sh
-$ ./gradlew jar
-```
-
-Run tests
-
-```sh
-$ ./gradlew test
-```
-
-builds the jar and writes it to _build/libs_.
 
 ### Maven
 
@@ -62,14 +39,6 @@ It will build the project and write jar to the _./target_.
 ### Configurable versions for some packages
 
 You can build the project using a different version of Keycloak or kafka, running the command:
-
-#### For Gradle
-
-```sh
-$ ./gradlew -PkeycloakVersion="15.0.2.Final" -PkafkaVersion="3.4.0" jar
-```
-
-or by changing the `gradle.properties` file in the root of the project.
 
 #### For Maven
 
@@ -121,5 +90,4 @@ Note: Make sure you have set up Podman to work with [compose](https://podman-des
 podman compose --file docker-compose.yml up --detach
 ```
 
-This just provides a simple example to show how it's working. Please consider to read [this documentation](https://www.keycloak.org/server/containers) and create your own Dockerfile.
 

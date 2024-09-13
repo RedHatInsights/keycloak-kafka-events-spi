@@ -11,6 +11,3 @@ indent_size = 4
 # The following property is not yet available via EditorConfig, but part of our style guideline
 # see https://github.com/editorconfig/editorconfig/wiki/Property-research:-maximum-line-length
 # max_line_length: 128
-
-[*.{java,gradle}]
-trim_trailing_whitespace = true
