@@ -7,7 +7,7 @@
     <artifactId>keycloak-kafka-events-spi</artifactId>
     <groupId>com.redhat.keycloak</groupId>
     <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>keycloak-kafka-events-spi</name>
     <description>publish events to kafka topic</description>
@@ -23,6 +23,7 @@
         <junit.version>5.9.2</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <revision>1.0.0-SNAPSHOT</revision>
     </properties>
 
     <repositories>
