@@ -23,15 +23,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class KafkaEventListenerProvider implements EventListenerProvider {
 
     private static final Logger LOG = Logger.getLogger(KafkaEventListenerProvider.class);
-
     private String topicEvents;
-
     private List<EventType> events;
-
     private String topicAdminEvents;
-
     private Producer<String, String> producer;
-
     private ObjectMapper mapper;
 
     public KafkaEventListenerProvider(String bootstrapServers, String clientId, String topicEvents, String[] events,
