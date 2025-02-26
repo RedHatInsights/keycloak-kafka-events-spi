@@ -15,12 +15,12 @@ provider(s) are defined:
 
 ## Environment variables Keycloak deployment will need for Kafka Events SPI
 
-| Environment Variables     |                 Description                  | Required | Default                 |
-|:--------------------------|:--------------------------------------------:|:--------:|:------------------------|
-| `KAFKA_BOOTSTRAP_SERVERS` | The Kafka server location example:kafka:9092 |    ✅     | `kafka:9092`            |
-| `KAFKA_CLIENT_ID`         |               Kafka client ID                |    ✅     | `keycloak`              |
-| `KAFKA_ADMIN_TOPIC`       |         Kafka topic for Admin events         |    ✅     | `keycloak-admin-events` |  
-| `KAFKA_TOPIC`             |              Kafka topic events              |    ✅     | `keycloak-events`       |  
+| Environment Variables     |         Description          | Required | Default                 |
+|:--------------------------|:----------------------------:|:--------:|:------------------------|
+| `KAFKA_BOOTSTRAP_SERVERS` |  The Kafka server location   |    ✅     | `kafka:9092`            |
+| `KAFKA_CLIENT_ID`         |       Kafka client ID        |    ✅     | `keycloak`              |
+| `KAFKA_ADMIN_TOPIC`       | Kafka topic for Admin events |    ✅     | `keycloak-admin-events` |  
+| `KAFKA_TOPIC`             |      Kafka topic events      |    ✅     | `keycloak-events`       |  
 
 ## Build
 
