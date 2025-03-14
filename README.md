@@ -17,7 +17,7 @@ provider(s) are defined:
 
 | Environment Variables     |         Description          | Required | Default                 |
 |:--------------------------|:----------------------------:|:--------:|:------------------------|
-| `KAFKA_BOOTSTRAP_SERVERS` |  The Kafka server location   |    ✅     | `kafka:9092`            |
+| `KAFKA_BOOTSTRAP_HOST` |  The Kafka server location   |    ✅     | `kafka:9092`            |
 | `KAFKA_CLIENT_ID`         |       Kafka client ID        |    ✅     | `keycloak`              |
 | `KAFKA_ADMIN_TOPIC`       | Kafka topic for Admin events |    ✅     | `keycloak-admin-events` |  
 | `KAFKA_TOPIC`             |      Kafka topic events      |    ✅     | `keycloak-events`       |  

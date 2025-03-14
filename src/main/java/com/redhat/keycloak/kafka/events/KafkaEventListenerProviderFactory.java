@@ -42,7 +42,7 @@ public class KafkaEventListenerProviderFactory implements EventListenerProviderF
     public void init(Scope config) {
         LOG.info("Init kafka module ...");
         clientId = config.get("clientId", System.getenv("KAFKA_CLIENT_ID"));
-        bootstrapServers = config.get("bootstrapServers", System.getenv("KAFKA_BOOTSTRAP_SERVERS"));
+        bootstrapServers = config.get("bootstrapServers", System.getenv("KAFKA_BOOTSTRAP_HOST"));
         topicEvents = config.get("topicEvents", System.getenv("KAFKA_TOPIC"));
         topicAdminEvents = config.get("topicAdminEvents", System.getenv("KAFKA_ADMIN_TOPIC"));
 
