@@ -11,7 +11,10 @@ class KafkaMockFactory implements KafkaProducerInterface {
     @Override
     public Producer<String, String> createProducer(String clientId, String bootstrapServer,
                                                    Map<String, Object> optionalProperties) {
-        return new MockProducer<>(true, new StringSerializer(), new StringSerializer());
+        @SuppressWarnings("unchecked")
+        Producer<String, String> producer = new MockProducer(
+            true, (org.apache.kafka.clients.producer.Partitioner) null,
+            new StringSerializer(), new StringSerializer());
+        return producer;
     }
 }
-

@@ -20,6 +20,10 @@ import org.keycloak.events.admin.AdminEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Enhanced Kafka event listener provider that supports comprehensive security configuration.
+ * Integrates with the enhanced KafkaProducerFactory for SASL authentication and certificate handling.
+ */
 public class KafkaEventListenerProvider implements EventListenerProvider {
 
     private static final Logger LOG = Logger.getLogger(KafkaEventListenerProvider.class);
@@ -31,6 +35,24 @@ public class KafkaEventListenerProvider implements EventListenerProvider {
 
     public KafkaEventListenerProvider(String bootstrapServers, String clientId, String topicEvents, String[] events,
                                       String topicAdminEvents, Map<String, Object> kafkaProducerProperties, KafkaProducerInterface factory) {
+        this(bootstrapServers, clientId, topicEvents, events, topicAdminEvents, kafkaProducerProperties, null, factory);
+    }
+
+    /**
+     * Enhanced constructor that supports security configuration via environment variables.
+     *
+     * @param bootstrapServers Kafka bootstrap servers
+     * @param clientId Kafka client ID
+     * @param topicEvents Topic for user events
+     * @param events Array of event types to listen for
+     * @param topicAdminEvents Topic for admin events
+     * @param kafkaProducerProperties Additional producer properties
+     * @param environmentVariables Environment variables for security configuration
+     * @param factory Producer factory instance
+     */
+    public KafkaEventListenerProvider(String bootstrapServers, String clientId, String topicEvents, String[] events,
+                                      String topicAdminEvents, Map<String, Object> kafkaProducerProperties,
+                                      Map<String, String> environmentVariables, KafkaProducerInterface factory) {
         this.topicEvents = topicEvents;
         this.events = new ArrayList<>();
         this.topicAdminEvents = topicAdminEvents;
@@ -44,7 +66,14 @@ public class KafkaEventListenerProvider implements EventListenerProvider {
             }
         }
 
-        producer = factory.createProducer(clientId, bootstrapServers, kafkaProducerProperties);
+        // Create producer with enhanced security support
+        if (factory instanceof KafkaProducerFactory && environmentVariables != null && !environmentVariables.isEmpty()) {
+            producer = ((KafkaProducerFactory) factory).createProducer(clientId, bootstrapServers,
+                kafkaProducerProperties, environmentVariables);
+        } else {
+            producer = factory.createProducer(clientId, bootstrapServers, kafkaProducerProperties);
+        }
+
         mapper = new ObjectMapper();
     }
 

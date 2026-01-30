@@ -2,14 +2,14 @@
 
 # Keycloak Events SPI
 
-A [Service Provider](https://www.keycloak.org/docs/latest/server_development/index.html#_providers) That will push 
+A [Service Provider](https://www.keycloak.org/docs/latest/server_development/index.html#_providers) That will push
 admin events to a specified Kafka topic for consumption.
 
 provider(s) are defined:
 
 * KafkaEventListenerProvider to record the Keycloak events and push to Kafka topic
 
-## License 
+## License
 
  See [LICENSE file](./LICENSE)
 
@@ -19,8 +19,14 @@ provider(s) are defined:
 |:--------------------------|:----------------------------:|:--------:|:------------------------|
 | `KAFKA_BOOTSTRAP_HOST` |  The Kafka server location   |    ✅     | `kafka:9092`            |
 | `KAFKA_CLIENT_ID`         |       Kafka client ID        |    ✅     | `keycloak`              |
-| `KAFKA_ADMIN_TOPIC`       | Kafka topic for Admin events |    ✅     | `keycloak-admin-events` |  
-| `KAFKA_TOPIC`             |      Kafka topic events      |    ✅     | `keycloak-events`       |  
+| `KAFKA_ADMIN_TOPIC`       | Kafka topic for Admin events |    ✅     | `keycloak-admin-events` |
+| `KAFKA_TOPIC`             |      Kafka topic events      |    ✅     | `keycloak-events`       |
+| `KAFKA_SECURITY_PROTOCOL` | Security protocol (PLAINTEXT, SSL, SASL_PLAINTEXT, SASL_SSL) | ❌ | `PLAINTEXT` |
+| `KAFKA_SASL_MECHANISM` | SASL mechanism (PLAIN, SCRAM-SHA-256, SCRAM-SHA-512, GSSAPI, OAUTHBEARER) | ❌ | - |
+| `KAFKA_SASL_USERNAME` | SASL username for authentication | ❌ | - |
+| `KAFKA_SASL_PASSWORD` | SASL password for authentication | ❌ | - |
+| `KAFKA_SSL_CA_CERTIFICATE` | CA certificate in PEM format for TLS | ❌ | - |
+| `KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM` | Endpoint identification algorithm (empty to disable hostname verification) | ❌ | - |
 
 ## Build
 
@@ -72,31 +78,52 @@ COPY keycloak-events-spi.jar /opt/keycloak/providers/
 COPY keycloak-events-spi.jar /opt/keycloak/providers/
 
 ```
-If not copied to both stages keycloak will complain 
+If not copied to both stages keycloak will complain
 ```
 ERROR: Failed to open /opt/keycloak/lib/../providers/keycloak-events-spi.jar
 ```
 
 ### Enable Events in keycloak
-1. Open administration console
-2. Choose realm
-3. Go to Events
-4. Open `Config` tab and add `kafka` to Event Listeners.
+ 1. Open administration console
+ 2. Choose realm
+ 3. Go to Events
+ 4. Open `Config` tab and add `kafka` to Event Listeners.
 
 ![Admin console config](images/initialize-kafka-listener.png)
 
 ## Podman/Docker Container
-The simplest way to enable the kafka module in a docker container is to create a custom docker image from the keycloak 
+The simplest way to enable the kafka module in a docker container is to create a custom docker image from the keycloak
 base image. A simple example can be found in the [Dockerfile](Dockerfile).
-When you build this image on your local machine by using 
+When you build this image on your local machine by using
 ```sh
 podman build . -t keycloak-kafka --tls-verify=false
 ```
 
 You can test everything by running the [docker-compose](docker-compose.yml) file on your local machine.
-Note: Make sure you have set up Podman to work with [compose](https://podman-desktop.io/docs/compose/setting-up-compose). 
+Note: Make sure you have set up Podman to work with [compose](https://podman-desktop.io/docs/compose/setting-up-compose).
 ```sh
 podman compose --file docker-compose.yml up --detach
 ```
 
 
+## Strimzi Security Configuration
+
+For connecting to a Strimzi-managed Kafka cluster with SCRAM-SHA-512 authentication and TLS certificates:
+
+```bash
+# SASL/SSL Configuration
+export KAFKA_SECURITY_PROTOCOL=SASL_SSL
+export KAFKA_SASL_MECHANISM=SCRAM-SHA-512
+export KAFKA_SASL_SCRAM_USERNAME=keycloak-service
+export KAFKA_SASL_SCRAM_PASSWORD=your-secure-password
+
+# TLS Certificate Configuration
+export KAFKA_SSL_PEM_CA_CERTIFICATES="-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----"
+```
+
+**Additional Security Variables:**
+- `KAFKA_SASL_USERNAME` / `KAFKA_SASL_PASSWORD` - For PLAIN mechanism
+- `KAFKA_SSL_PEM_PRIVATE_KEY` / `KAFKA_SSL_PEM_CERTIFICATE_CHAIN` - For client authentication
+- `KAFKA_SSL_ENABLED_PROTOCOLS` - TLS protocols (e.g., TLSv1.2,TLSv1.3)

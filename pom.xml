@@ -15,7 +15,7 @@
     <properties>
         <java.version>21</java.version>
         <keycloak.version>24.0.0</keycloak.version>
-        <kafka.version>3.7.0</kafka.version>
+        <kafka.version>4.0.0</kafka.version>
         <quarkus-resteasy.version>3.8.5</quarkus-resteasy.version>
         <version.compiler.maven.plugin>3.5.1</version.compiler.maven.plugin>
         <maven.compiler.source>17</maven.compiler.source>
